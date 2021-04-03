@@ -2,13 +2,78 @@
 
 //Implement of algorithms
 int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
-    int pos = 0;
-    return pos;
+   if (Line_2.size() == 0) {
+		return -1;
+	}
+	else if (Line_1.size() < Line_2.size()) {
+		return -1;
+	}
+	// Cycle for 1 character transition
+	for (size_t i = 0; i <= Line_1.size() - Line_2.size(); i++) {
+		size_t j;
+		int pos = 0;
+		// For each character with text check the pattern
+		for (j = 0; j < Line_2.size(); j++) {
+			if (Line_1[i + j] == Line_2[0]) {
+				pos = i + j;
+			}
+			if (Line_1[i + j] != Line_2[j]) {
+				break;
+			}
+		}
+		// Line_2 found
+		if (j == Line_2.size()) {
+			return pos;
+		}
+	}
+	return -1;
 }
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
-    int pos = 0;
-    return pos;
+    if (Line_2.size() == 0) {
+		return -1;
+	}
+	else if (Line_1.size() < Line_2.size()) {
+		return -1;
+	}
+	size_t j = 0;
+	int pos = 0;
+	int pattern_hash = 0;
+	int text_hash = 0;
+	int h = 1;
+	int d = 10;
+	for (size_t i = 0; i < Line_2.size() - 1; i++) {
+		h = (h * d) % (d + 3);
+	}
+	// Calculate the hash value for the pattern and text
+	for (size_t i = 0; i < Line_2.size(); i++) {
+		pattern_hash = (d * pattern_hash + Line_2[i]) % (d + 3);
+		text_hash = (d * text_hash + Line_1[i]) % (d + 3);
+	}
+	// Find a match
+	for (size_t i = 0; i <= Line_1.size() - Line_2.size(); i++) {
+		if (pattern_hash == text_hash) {
+			
+			if (Line_1[i + j] == Line_2[0]) {
+				pos = i + j;
+			}
+			for (j = 0; j < Line_2.size(); j++) {
+				if (Line_1[i + j] != Line_2[j]) {
+					break;
+				}
+			}
+			if (j == Line_2.size()) {
+				return pos;
+			}
+		}
+		if (i < Line_1.size() - Line_2.size()) {
+			text_hash = (d * (text_hash - Line_1[i] * h) + Line_1[i + Line_2.size()]) % (d + 3);
+			if (text_hash < 0) {
+				text_hash = (text_hash + (d + 3));
+			}
+		}
+	}
+	return -1;
 }
 std::vector<int> Horspool::shift_table(const std::string& p)
 {
