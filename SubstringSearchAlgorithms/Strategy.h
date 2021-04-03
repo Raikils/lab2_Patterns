@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 //A class hierarchy that defines the algorithms for finding a contract
 class Substring_Search_Algorithms
@@ -27,6 +28,8 @@ public:
 //Horspool algorithm
 class Horspool : public Substring_Search_Algorithms
 {
+private:
+    std::vector<int> shift_table(const std::string& p);
 public:
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
@@ -34,6 +37,8 @@ public:
 //KMP algorithm
 class KMP : public Substring_Search_Algorithms
 {
+private:
+    std::vector<int> pref(const std::string& p);
 public:
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
