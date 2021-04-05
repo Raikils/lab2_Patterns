@@ -87,7 +87,7 @@ std::vector<int> Horspool::shift_table(const std::string& p)
     }
     return a;
 }
-int Horspool:: Search(const std::string& Line_1, const std::string& Line_2) {
+int Horspool::Search(const std::string& Line_1, const std::string& Line_2) {
     if (Line_2.size() > Line_1.size()) return -1;
     std::vector<int> t = shift_table(Line_2);
     int i = Line_2.size() - 1;
@@ -142,5 +142,5 @@ Substring_Search_Algorithms_::Substring_Search_Algorithms_(Substring_Search_Algo
 Substring_Search_Algorithms_::~Substring_Search_Algorithms_() { delete p; }
 
 int Substring_Search_Algorithms_::Search(const std::string& Line_1, const std::string& Line_2) {
-    p->Search(Line_1, Line_2);
+    return p->Search(Line_1, Line_2);
 }
