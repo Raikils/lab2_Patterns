@@ -12,12 +12,16 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 	for (size_t i = 0; i <= Line_1.size() - Line_2.size(); i++) {
 		size_t j;
 		int pos = 0;
+		bool q = true;
 		// For each character with text check the pattern
 		for (j = 0; j < Line_2.size(); j++) {
-			if (Line_1[i + j] == Line_2[0]) {
+			if (Line_1[i + j] == Line_2[0] && q == true) {
+				q = false;
 				pos = i + j;
 			}
+			
 			if (Line_1[i + j] != Line_2[j]) {
+				q = true;
 				break;
 			}
 		}
@@ -27,6 +31,10 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 		}
 	}
 	return -1;
+}
+
+std::string Naive::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
+	return v.visit(this,Line_1,Line_2);
 }
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
@@ -42,6 +50,7 @@ int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
 	int text_hash = 0;
 	int h = 1;
 	int d = 10;
+	bool q = true;
 	for (size_t i = 0; i < Line_2.size() - 1; i++) {
 		h = (h * d) % (d + 3);
 	}
@@ -53,12 +62,13 @@ int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
 	// Find a match
 	for (size_t i = 0; i <= Line_1.size() - Line_2.size(); i++) {
 		if (pattern_hash == text_hash) {
-			
-			if (Line_1[i + j] == Line_2[0]) {
-				pos = i + j;
-			}
 			for (j = 0; j < Line_2.size(); j++) {
+				if (Line_1[i + j] == Line_2[0] && q == true) {
+					q = false;
+					pos = i + j;
+				}
 				if (Line_1[i + j] != Line_2[j]) {
+					q = true;
 					break;
 				}
 			}
@@ -75,6 +85,12 @@ int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
 	}
 	return -1;
 }
+
+std::string Rabina_Karpa::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
+	return v.visit(this,Line_1,Line_2);
+}
+
+
 std::vector<int> Horspool::shift_table(const std::string& p)
 {
     std::vector<int> a;
@@ -101,6 +117,11 @@ int Horspool::Search(const std::string& Line_1, const std::string& Line_2) {
     }
     return -1;
 }
+
+std::string Horspool::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
+	return v.visit(this,Line_1,Line_2);
+}
+
 
 std::vector<int> KMP::pref(const std::string& p)
 {
@@ -130,16 +151,28 @@ int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
     }
     return -1;
 }
+std::string KMP::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
+	return v.visit(this,Line_1,Line_2);
+}
+
 
 int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
     int pos = 0;
     return pos;
 }
 
+std::string Boyer_Moor::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
+	return v.visit(this,Line_1,Line_2);
+}
+
 //Implement a class for use
 Substring_Search_Algorithms_::Substring_Search_Algorithms_(Substring_Search_Algorithms* comp) : p(comp) {}
 
 Substring_Search_Algorithms_::~Substring_Search_Algorithms_() { delete p; }
+
+std::string Substring_Search_Algorithms_::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
+	return p->accept(v,Line_1,Line_2);
+}
 
 int Substring_Search_Algorithms_::Search(const std::string& Line_1, const std::string& Line_2) {
     return p->Search(Line_1, Line_2);

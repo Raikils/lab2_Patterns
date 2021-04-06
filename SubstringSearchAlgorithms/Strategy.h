@@ -8,6 +8,7 @@ class Substring_Search_Algorithms
 {
 public:
     virtual ~Substring_Search_Algorithms() {}
+	virtual std::string accept(class Visitor& v, const std::string& Line_1, const std::string& Line_2) = 0;
     virtual int Search(const std::string& Line_1, const std::string& Line_2) = 0;
 };
 
@@ -15,6 +16,7 @@ public:
 class Naive : public Substring_Search_Algorithms
 {
 public:
+	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
@@ -22,24 +24,25 @@ public:
 class Rabina_Karpa : public Substring_Search_Algorithms
 {
 public:
+	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
 //Horspool algorithm
 class Horspool : public Substring_Search_Algorithms
 {
-private:
-    std::vector<int> shift_table(const std::string& p);
 public:
+	std::vector<int> shift_table(const std::string& p);
+    std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
 //KMP algorithm
 class KMP : public Substring_Search_Algorithms
 {
-private:
-    std::vector<int> pref(const std::string& p);
 public:
+	std::vector<int> pref(const std::string& p);
+    std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
@@ -47,6 +50,7 @@ public:
 class Boyer_Moor : public Substring_Search_Algorithms
 {
 public:
+	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
@@ -57,6 +61,7 @@ class Substring_Search_Algorithms_ : public Substring_Search_Algorithms
 public:
     Substring_Search_Algorithms_(Substring_Search_Algorithms* comp);
     ~Substring_Search_Algorithms_();
+	 std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 private:
     Substring_Search_Algorithms* p;
