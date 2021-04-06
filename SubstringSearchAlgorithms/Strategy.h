@@ -52,7 +52,7 @@ public:
 
 
 //Implement a class for use
-class Substring_Search_Algorithms_
+class Substring_Search_Algorithms_ : public Substring_Search_Algorithms
 {
 public:
     Substring_Search_Algorithms_(Substring_Search_Algorithms* comp);
