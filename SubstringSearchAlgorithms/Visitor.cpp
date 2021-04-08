@@ -152,8 +152,44 @@
       
     }
 }
+
 /*virtual*/std::string  ComplexityOfTheAlgorithm::visit(Boyer_Moor *p, const std::string& Line_1, const std::string& Line_2)
 {
-    std::string result = "O(n+m) - O( )";
+    std::string result = "O(n+m) ";
     return   result;
+}
+
+std::string AmountOfMemoryOfTheAlgorithm::visit(Naive* p, const std::string& Line_1, const std::string& Line_2) {
+    int* a = new int[4];
+    p->Search(Line_1, Line_2);
+    return PrintUsage();
+}
+
+std::string AmountOfMemoryOfTheAlgorithm::visit(Rabina_Karpa* p, const std::string& Line_1, const std::string& Line_2) {
+    int* a = new int[8];
+    p->Search(Line_1, Line_2);
+    return PrintUsage();
+}
+
+std::string AmountOfMemoryOfTheAlgorithm::visit(KMP* p, const std::string& Line_1, const std::string& Line_2) {
+    int* a = new int[7];
+    p->pref(Line_2);
+    p->Search(Line_1, Line_2);
+    return PrintUsage();
+   
+}
+
+std::string AmountOfMemoryOfTheAlgorithm::visit(Horspool* p, const std::string& Line_1, const std::string& Line_2) {
+    int* a = new int[5];
+    p->shift_table(Line_2);
+    p->Search(Line_1, Line_2);
+    return PrintUsage();
+   
+    
+}
+
+std::string AmountOfMemoryOfTheAlgorithm::visit(Boyer_Moor* p, const std::string& Line_1, const std::string& Line_2) {
+
+    p->Search(Line_1, Line_2);
+    return PrintUsage();
 }
