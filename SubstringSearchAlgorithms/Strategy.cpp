@@ -36,52 +36,25 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 std::string Naive::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
 	return v.visit(this,Line_1,Line_2);
 }
+Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
-    if (Line_2.size() == 0) {
-		return -1;
+	if (Line_2.size() > Line_1.size()) return -1;
+	int h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
+	for (int i = 0; i < Line_2.size(); i++) {
+		t = (d * t + Line_2[i]) % q;
+		t0 = (d * t0 + Line_1[i]) % q;
 	}
-	else if (Line_1.size() < Line_2.size()) {
-		return -1;
-	}
-	size_t j = 0;
-	int pos = 0;
-	int pattern_hash = 0;
-	int text_hash = 0;
-	int h = 1;
-	int d = 10;
-	bool q = true;
-	for (size_t i = 0; i < Line_2.size() - 1; i++) {
-		h = (h * d) % (d + 3);
-	}
-	// Calculate the hash value for the pattern and text
-	for (size_t i = 0; i < Line_2.size(); i++) {
-		pattern_hash = (d * pattern_hash + Line_2[i]) % (d + 3);
-		text_hash = (d * text_hash + Line_1[i]) % (d + 3);
-	}
-	// Find a match
-	for (size_t i = 0; i <= Line_1.size() - Line_2.size(); i++) {
-		if (pattern_hash == text_hash) {
-			for (j = 0; j < Line_2.size(); j++) {
-				if (Line_1[i + j] == Line_2[0] && q == true) {
-					q = false;
-					pos = i + j;
-				}
-				if (Line_1[i + j] != Line_2[j]) {
-					q = true;
-					break;
-				}
+	for (int j = 0; j < Line_1.size() - Line_2.size() + 1; j++) {
+		if (t == t0) {
+			bool w = true;
+			for (int k = 0; k < Line_2.size(); k++) {
+				if (Line_2[k] != Line_1[j + k]) { w = false; break; }
 			}
-			if (j == Line_2.size()) {
-				return pos;
-			}
+			if (w) return j;
 		}
-		if (i < Line_1.size() - Line_2.size()) {
-			text_hash = (d * (text_hash - Line_1[i] * h) + Line_1[i + Line_2.size()]) % (d + 3);
-			if (text_hash < 0) {
-				text_hash = (text_hash + (d + 3));
-			}
-		}
+		t0 = (d * (t0 - Line_1[j] * h) + Line_1[j + Line_2.size()]) % q;
+		if (t0 < 0) t0 += q;
 	}
 	return -1;
 }
