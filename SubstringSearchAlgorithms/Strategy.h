@@ -23,11 +23,10 @@ public:
 //Rabina Karpa algorithm
 class Rabina_Karpa : public Substring_Search_Algorithms
 {
-private:
-    long long d;
+public:
+	long long d;
     long long q;
     long long power(int x, int y) { if (y == 0) return 1; else return power(x, y - 1) * x; }
-public:
     Rabina_Karpa();
 	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
