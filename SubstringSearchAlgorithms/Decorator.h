@@ -1,8 +1,13 @@
 #pragma once
 #include "Strategy.h"
-//#include "Strategy.cpp"
 
-class Decorator: public Substring_Search_Algorithms
+#ifdef SubstringSearchAlgorithms_lib
+#define DECLSPEC __declspec(dllexport)
+#else
+#define DECLSPEC __declspec(dllimport)
+#endif
+
+class DECLSPEC Decorator: public Substring_Search_Algorithms
 {
 private:
 	Substring_Search_Algorithms* w;
@@ -12,7 +17,7 @@ public:
 	int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
-class Improved_Rabina_Karpa : public Rabina_Karpa
+class DECLSPEC Improved_Rabina_Karpa : public Rabina_Karpa
 {
 private:
 	Rabina_Karpa* r;

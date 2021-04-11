@@ -1,4 +1,6 @@
+#include "pch.h"
 #include "Strategy.h"
+#include "Visitor.h"
 
 //Implement of algorithms
 int Naive::Search(const std::string& Line_1, const std::string& Line_2) {

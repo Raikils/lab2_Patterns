@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Visitor.h"
 
 /*virtual*/std::string ComplexityOfTheAlgorithm::visit(Naive *p, const std::string& Line_1, const std::string& Line_2)

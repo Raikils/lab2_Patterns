@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Decorator.h"
 
 int Decorator::Search(const std::string& Line_1, const std::string& Line_2)

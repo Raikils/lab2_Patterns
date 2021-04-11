@@ -5,9 +5,14 @@
 #include <iostream>
 
 
+#ifdef SubstringSearchAlgorithms_lib
+#define DECLSPEC __declspec(dllexport)
+#else
+#define DECLSPEC __declspec(dllimport)
+#endif
 
 
-struct MemoryUsage
+struct DECLSPEC MemoryUsage
 {
 	uint32_t TotalAllocated = 0;
 	uint32_t TotalFreed= 0 ;
@@ -15,8 +20,8 @@ struct MemoryUsage
 };
 
 
-static MemoryUsage s_MemoryUsage;
-void* operator new(size_t size);
-void operator delete(void* memory, int size);
-extern std::string PrintUsage();
+static  MemoryUsage s_MemoryUsage;
+void*  operator new(size_t size);
+void DECLSPEC operator delete(void* memory, int size);
+extern DECLSPEC std::string PrintUsage();
 

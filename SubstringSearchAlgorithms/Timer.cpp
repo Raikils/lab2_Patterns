@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Timer.h"
 
 int Timer::Search(const std::string& Line_1, const std::string& Line_2)

@@ -3,8 +3,15 @@
 #include <string>
 #include <vector>
 
+
+#ifdef SubstringSearchAlgorithms_lib
+#define DECLSPEC __declspec(dllexport)
+#else
+#define DECLSPEC __declspec(dllimport)
+#endif
+
 //A class hierarchy that defines the algorithms for finding a contract
-class Substring_Search_Algorithms
+class DECLSPEC Substring_Search_Algorithms
 {
 public:
     virtual ~Substring_Search_Algorithms() {}
@@ -13,7 +20,7 @@ public:
 };
 
 //Naive algorithm
-class Naive : public Substring_Search_Algorithms
+class DECLSPEC Naive : public Substring_Search_Algorithms
 {
 public:
 	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
@@ -21,7 +28,7 @@ public:
 };
 
 //Rabina Karpa algorithm
-class Rabina_Karpa : public Substring_Search_Algorithms
+class DECLSPEC Rabina_Karpa : public Substring_Search_Algorithms
 {
 public:
 	long long d;
@@ -33,7 +40,7 @@ public:
 };
 
 //Horspool algorithm
-class Horspool : public Substring_Search_Algorithms
+class DECLSPEC Horspool : public Substring_Search_Algorithms
 {
 public:
 	std::vector<int> shift_table(const std::string& p);
@@ -42,7 +49,7 @@ public:
 };
 
 //KMP algorithm
-class KMP : public Substring_Search_Algorithms
+class DECLSPEC KMP : public Substring_Search_Algorithms
 {
 public:
 	std::vector<int> pref(const std::string& p);
@@ -51,7 +58,7 @@ public:
 };
 
 //Boyer Moor algorithm
-class Boyer_Moor : public Substring_Search_Algorithms
+class DECLSPEC Boyer_Moor : public Substring_Search_Algorithms
 {
 public:
 	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
@@ -60,7 +67,7 @@ public:
 
 
 //Implement a class for use
-class Substring_Search_Algorithms_ : public Substring_Search_Algorithms
+class DECLSPEC Substring_Search_Algorithms_ : public Substring_Search_Algorithms
 {
 public:
     Substring_Search_Algorithms_(Substring_Search_Algorithms* comp);
