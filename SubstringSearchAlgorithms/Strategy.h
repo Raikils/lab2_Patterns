@@ -1,7 +1,9 @@
 #pragma once
+#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS
 #include <iostream>
 #include <string>
 #include <vector>
+#include <hash_map>
 
 
 #ifdef SubstringSearchAlgorithms_lib
@@ -83,6 +85,7 @@ private:
 public:
     std::vector<int> GerBreak_();
     void SetBreak_(const int& index);
+    std::vector<int> prefix_func(const std::string& s);
 	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };

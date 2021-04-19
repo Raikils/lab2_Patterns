@@ -163,9 +163,72 @@ void KMP::SetBreak_(const int& index) {
 	break_.push_back(index);
 }
 
+std::vector<int> Boyer_Moor::prefix_func(const std::string& s) {
+	std::vector<int> p(s.length());
+
+	int k = 0;
+	p[0] = 0;
+	for (int i = 1; i < s.length(); ++i) {
+		while (k > 0 && s[k] != s[i]) {
+			k = p[k - 1];
+		}
+		if (s[k] == s[i]) {
+			++k;
+		}
+		p[i] = k;
+	}
+	return p;
+}
+
+
 int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
-    int pos = 0;
-    return pos;
+	if (Line_1.length() < Line_2.length()) {
+		return -1;
+	}
+
+	if (!Line_2.length()) {
+		return Line_1.length();
+	}
+
+	typedef std::hash_map<char, int> TStopTable;
+	typedef std::hash_map<int, int> TSufficsTable;
+	TStopTable stop_table;
+	TSufficsTable suffics_table;
+
+	for (int i = 0; i < Line_2.length(); ++i) {
+		stop_table[Line_2[i]] = i;
+	}
+
+	std::string rt(Line_2.rbegin(), Line_2.rend());
+	std::vector<int> p = prefix_func(Line_2), pr = prefix_func(rt);
+	for (int i = 0; i < Line_2.length() + 1; ++i) {
+		suffics_table[i] = Line_2.length() - p.back();
+	}
+
+	for (int i = 1; i < Line_2.length(); ++i) {
+		int j = pr[i];
+		suffics_table[j] = std::min(suffics_table[j], i - pr[i] + 1);
+	}
+
+	for (int shift = 0; shift <= Line_1.length() - Line_2.length();) {
+		int pos = Line_2.length() - 1;
+
+		while (Line_2[pos] == Line_1[pos + shift]) {
+			if (pos == 0) return shift;
+			--pos;
+		}
+
+		if (pos == Line_2.length() - 1) {
+			TStopTable::const_iterator stop_symbol = stop_table.find(Line_1[pos + shift]);
+			int stop_symbol_additional = pos - (stop_symbol != stop_table.end() ? stop_symbol->second : -1);
+			shift += stop_symbol_additional;
+		}
+		else {
+			shift += suffics_table[Line_2.length() - pos - 1];
+		}
+	}
+
+	return -1;
 }
 
 std::string Boyer_Moor::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
