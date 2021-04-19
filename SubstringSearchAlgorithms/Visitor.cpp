@@ -6,7 +6,7 @@
 	int start_ = p->Search(Line_1,Line_2);
     if (start_ == 0) {
         std::string c = std::to_string(Line_2.size());
-        std::string result = "O(nm) - O(" + c + ")";
+        std::string result = "O(m) - O(" + c + ")";
         return   result;
     }
     else if (start_ == Line_1.size() - Line_2.size()) {

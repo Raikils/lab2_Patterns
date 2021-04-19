@@ -9,7 +9,7 @@
 #define DECLSPEC __declspec(dllimport)
 #endif
 
-class DECLSPEC Visitor
+class  Visitor
 {
 public:
     virtual std::string visit(Naive *p, const std::string& Line_1, const std::string& Line_2) = 0;
@@ -19,7 +19,7 @@ public:
     virtual std::string visit(Boyer_Moor *p, const std::string& Line_1, const std::string& Line_2) = 0;
 };
 
-class DECLSPEC ComplexityOfTheAlgorithm : public Visitor
+class  ComplexityOfTheAlgorithm : public Visitor
 {
     std::string visit(Naive *p, const std::string& Line_1, const std::string& Line_2);
     std::string visit(Rabina_Karpa *p, const std::string& Line_1, const std::string& Line_2);
@@ -28,7 +28,7 @@ class DECLSPEC ComplexityOfTheAlgorithm : public Visitor
     std::string visit(Boyer_Moor *p, const std::string& Line_1, const std::string& Line_2);
 };
 
-class DECLSPEC AmountOfMemoryOfTheAlgorithm : public Visitor
+class  AmountOfMemoryOfTheAlgorithm : public Visitor
 {
     std::string visit(Naive* p, const std::string& Line_1, const std::string& Line_2);
     std::string visit(Rabina_Karpa* p, const std::string& Line_1, const std::string& Line_2);

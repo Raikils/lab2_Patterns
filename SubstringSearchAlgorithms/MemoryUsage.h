@@ -20,8 +20,10 @@ struct DECLSPEC MemoryUsage
 };
 
 
+void SetCurrentUsage();
 static  MemoryUsage s_MemoryUsage;
 void*  operator new(size_t size);
 void DECLSPEC operator delete(void* memory, int size);
+
 extern DECLSPEC std::string PrintUsage();
 

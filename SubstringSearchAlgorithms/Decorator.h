@@ -7,17 +7,20 @@
 #define DECLSPEC __declspec(dllimport)
 #endif
 
-class DECLSPEC Decorator: public Substring_Search_Algorithms
+class Decorator: public Substring_Search_Algorithms
 {
 private:
 	Substring_Search_Algorithms* w;
 public:
 	Decorator(Substring_Search_Algorithms* w): w(w) {}
 	Decorator(): w(nullptr) {}
+	std::string accept(class Visitor& v, const std::string& Line_1, const std::string& Line_2);
+	std::vector<int> GerBreak_();
+	void SetBreak_(const int& index);
 	int Search(const std::string& Line_1, const std::string& Line_2);
 };
 
-class DECLSPEC Improved_Rabina_Karpa : public Rabina_Karpa
+class  Improved_Rabina_Karpa : public Rabina_Karpa
 {
 private:
 	Rabina_Karpa* r;

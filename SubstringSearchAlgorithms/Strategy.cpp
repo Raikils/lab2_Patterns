@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Strategy.h"
 #include "Visitor.h"
-
+#include "Timer.h"
 //Implement of algorithms
 int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
    if (Line_2.size() == 0) {
@@ -10,7 +10,7 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 	else if (Line_1.size() < Line_2.size()) {
 		return -1;
 	}
-	// Cycle for 1 character transition
+	 //Cycle for 1 character transition
 	for (size_t i = 0; i <= Line_1.size() - Line_2.size(); i++) {
 		size_t j;
 		int pos = 0;
@@ -23,6 +23,7 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 			}
 			
 			if (Line_1[i + j] != Line_2[j]) {
+				SetBreak_(i + j);
 				q = true;
 				break;
 			}
@@ -38,6 +39,15 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 std::string Naive::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
 	return v.visit(this,Line_1,Line_2);
 }
+
+std::vector<int> Naive::GerBreak_() {
+	return this->break_;
+}
+
+void Naive::SetBreak_(const int& index) {
+	break_.push_back(index);
+}
+
 Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
@@ -51,7 +61,7 @@ int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
 		if (t == t0) {
 			bool w = true;
 			for (int k = 0; k < Line_2.size(); k++) {
-				if (Line_2[k] != Line_1[j + k]) { w = false; break; }
+				if (Line_2[k] != Line_1[j + k]) { w = false; SetBreak_(j + k); break; }
 			}
 			if (w) return j;
 		}
@@ -65,6 +75,13 @@ std::string Rabina_Karpa::accept(Visitor& v, const std::string& Line_1, const st
 	return v.visit(this,Line_1,Line_2);
 }
 
+std::vector<int> Rabina_Karpa::GerBreak_() {
+	return this->break_;
+}
+
+void Rabina_Karpa::SetBreak_(const int& index) {
+	break_.push_back(index);
+}
 
 std::vector<int> Horspool::shift_table(const std::string& p)
 {
@@ -97,39 +114,54 @@ std::string Horspool::accept(Visitor& v, const std::string& Line_1, const std::s
 	return v.visit(this,Line_1,Line_2);
 }
 
+std::vector<int> Horspool::GerBreak_() {
+	return this->break_;
+}
+
+void Horspool::SetBreak_(const int& index) {
+	break_.push_back(index);
+}
+
 
 std::vector<int> KMP::pref(const std::string& p)
 {
-    std::vector<int> pi(p.size(), 0);
-    int i, j, k, l;
-    for (i = 1; i < p.size(); i++) {
-        for (j = 1; j <= i; j++) {
-            bool q = true;
-            for (k = 0, l = i - j + 1; k < j; k++, l++) {
-                if (p[k] != p[l]) { q = false; break; }
-            }
-            if (q) pi[i] = j;
-        }
-    }
-    return pi;
+	std::vector<int> pi(p.size(), 0);
+	int i, j, k, l;
+	for (i = 1; i < p.size(); i++) {
+		for (j = 1; j <= i; j++) {
+			bool q = true;
+			for (k = 0, l = i - j + 1; k < j; k++, l++) {
+				if (p[k] != p[l]) { q = false; break; }
+			}
+			if (q) pi[i] = j;
+		}
+	}
+	return pi;
 }
 
 int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
-    if (Line_2.size() > Line_1.size()) return -1;
-    std::vector<int> pi = pref(Line_2);
-    int q = 0;
-    for (int i = 0; i < Line_1.size(); i++) {
-        while (q > 0 && Line_2[q] != Line_1[i]) q = pi[q];
-        if (Line_2[q] == Line_1[i]) q++;
-        if (q == Line_2.size()) return i - Line_2.size() + 1;
-        //q = pi[q];
-    }
-    return -1;
+	if (Line_2.size() > Line_1.size()) return -1;
+	std::vector<int> pi = pref(Line_2);
+	int q = 0;
+	for (int i = 0; i < Line_1.size(); i++) {
+		while (q > 0 && Line_2[q] != Line_1[i]) q = pi[q];
+		if (Line_2[q] == Line_1[i]) q++;
+		if (q == Line_2.size()) return i - Line_2.size() + 1;
+		//q = pi[q];
+	}
+	return -1;
 }
+
 std::string KMP::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
 	return v.visit(this,Line_1,Line_2);
 }
 
+std::vector<int> KMP::GerBreak_() {
+	return this->break_;
+}
+void KMP::SetBreak_(const int& index) {
+	break_.push_back(index);
+}
 
 int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
     int pos = 0;
@@ -138,6 +170,14 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 
 std::string Boyer_Moor::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
 	return v.visit(this,Line_1,Line_2);
+}
+
+std::vector<int> Boyer_Moor::GerBreak_() {
+	return this->break_;
+}
+
+void Boyer_Moor::SetBreak_(const int& index) {
+	break_.push_back(index);
 }
 
 //Implement a class for use
@@ -151,4 +191,12 @@ std::string Substring_Search_Algorithms_::accept(Visitor& v, const std::string& 
 
 int Substring_Search_Algorithms_::Search(const std::string& Line_1, const std::string& Line_2) {
     return p->Search(Line_1, Line_2);
+}
+
+std::vector<int> Substring_Search_Algorithms_::GerBreak_() {
+	return p->GerBreak_();
+}
+
+void Substring_Search_Algorithms_::SetBreak_(const int& index) {
+	p->SetBreak_(index);
 }
