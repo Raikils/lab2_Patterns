@@ -190,8 +190,8 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 		return Line_1.length();
 	}
 
-	typedef std::hash_map<char, int> TStopTable;
-	typedef std::hash_map<int, int> TSufficsTable;
+	typedef std:: map<char, int> TStopTable;
+	typedef std:: map<int, int> TSufficsTable;
 	TStopTable stop_table;
 	TSufficsTable suffics_table;
 
