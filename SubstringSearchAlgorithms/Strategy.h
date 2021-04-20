@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <hash_map>
+#include <map>
 
 
 #ifdef SubstringSearchAlgorithms_lib
