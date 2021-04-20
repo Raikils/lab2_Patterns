@@ -189,7 +189,7 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 	}
 
 	if (!Line_2.length()) {
-		return Line_1.length();
+		return -1;
 	}
 
 	typedef std:: map<char, int> TStopTable;
