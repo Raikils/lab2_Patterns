@@ -18,12 +18,18 @@ int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
 		// For each character with text check the pattern
 		for (j = 0; j < Line_2.size(); j++) {
 			if (Line_1[i + j] == Line_2[0] && q == true) {
+				
 				q = false;
 				pos = i + j;
 			}
 			
 			if (Line_1[i + j] != Line_2[j]) {
-				SetBreak_(i + j);
+				if (j == 0) {
+					SetBreak_(i + j+1);
+				}
+				else {
+					SetBreak_(i+j);
+				}
 				q = true;
 				break;
 			}
@@ -62,7 +68,16 @@ int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
 		if (t == t0) {
 			bool w = true;
 			for (int k = 0; k < Line_2.size(); k++) {
-				if (Line_2[k] != Line_1[j + k]) { w = false; SetBreak_(j + k); break; }
+				if (Line_2[k] != Line_1[j + k]) { 
+				w = false;
+				if (j == 0) {
+					SetBreak_(j + k + 1);
+				}
+				else {
+					SetBreak_(j + k);
+				}
+				break; 
+				}
 			}
 			if (w) return j;
 		}
