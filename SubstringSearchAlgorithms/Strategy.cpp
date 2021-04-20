@@ -52,7 +52,8 @@ Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
 	if (Line_2.size() > Line_1.size()) return -1;
-	int h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
+        if (Line_2.size() == 0) return -1;
+        long long h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
 	for (int i = 0; i < Line_2.size(); i++) {
 		t = (d * t + Line_2[i]) % q;
 		t0 = (d * t0 + Line_1[i]) % q;
@@ -90,13 +91,14 @@ std::vector<int> Horspool::shift_table(const std::string& p)
     for (i = 0; i < 256; i++) {
         a.push_back(p.size());
     }
-    for (i = 0; i < p.size(); i++) {
+    for (i = 0; i < p.size() - 1; i++) {
         a[p[i]] = p.size() - 1 - i;
     }
     return a;
 }
 int Horspool::Search(const std::string& Line_1, const std::string& Line_2) {
     if (Line_2.size() > Line_1.size()) return -1;
+    if (Line_2.size() == 0) return -1;
     std::vector<int> t = shift_table(Line_2);
     int i = Line_2.size() - 1;
     while (i < Line_1.size()) {
