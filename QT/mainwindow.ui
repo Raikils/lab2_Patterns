@@ -277,6 +277,11 @@
          <string>Horspool</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>Boyer Moor</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

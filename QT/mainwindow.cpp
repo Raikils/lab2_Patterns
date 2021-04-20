@@ -154,6 +154,29 @@ void MainWindow::on_pushButton_clicked()
         ui->textBrowser_Start->setText(w);
         ui->textBrowser_Complexity->setText(s);
     }
+    if(ui->listWidget->currentItem()->text()=="Boyer Moor"){
+        MemoryUsage mem;
+        SetCurrentUsage();
+        Substring_Search_Algorithms_* p = new Substring_Search_Algorithms_(new Boyer_Moor);
+        std::string a = ui->lineEdit_1->text().toStdString();
+        std::string b = ui->lineEdit_2->text().toStdString();
+        ComplexityOfTheAlgorithm r;
+        QString s = p->accept(r,a,b).c_str();
+        int n = p->Search(a,b);
+        QString w = QString::number(n);
+        Timer *t = new Timer(p);
+        t->Search(a,b);
+        QString t1 = QString::number(t->time());
+        if(mem.CurrentUsage() > 0){
+            SetCurrentUsage();
+        }
+        AmountOfMemoryOfTheAlgorithm m;
+        QString m1 = p->accept(m,a,b).c_str();
+        ui->textBrowser_Memory->setText(m1);
+        ui->textBrowser_Time->setText(t1);
+        ui->textBrowser_Start->setText(w);
+        ui->textBrowser_Complexity->setText(s);
+    }
 }
 
 void MainWindow::on_pushButton_2_clicked()
