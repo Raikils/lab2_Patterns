@@ -143,6 +143,7 @@ std::vector<int> KMP::pref(const std::string& p)
 
 int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
 	if (Line_2.size() > Line_1.size()) return -1;
+        if (Line_2.size() == 0) return -1;
 	std::vector<int> pi = pref(Line_2);
 	int q = 0;
 	for (int i = 0; i < Line_1.size(); i++) {
