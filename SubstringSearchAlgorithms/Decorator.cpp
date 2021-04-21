@@ -10,12 +10,12 @@ std::string Decorator::accept(class Visitor& v, const std::string& Line_1, const
 	return "";
 }
 
-std::vector<int> Decorator::GerBreak_() {
-	return { 0 };
+std::vector<point> Decorator::GetBreak_() {
+        return {};
 }
 
-void Decorator::SetBreak_(const int& index) {
-	std::cout << " " << std::endl;
+void Decorator::SetBreak_(const int& i, const int& j, const bool& q) {
+
 }
 
 int Improved_Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2)
