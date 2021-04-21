@@ -233,21 +233,20 @@
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_2">
+           <property name="font">
+            <font>
+             <family>Arial Black</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
            <property name="text">
-            <string>PushButton</string>
+            <string>Show iterations</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox">
-       <property name="maximum">
-        <double>20000.000000000000000</double>
-       </property>
-      </widget>
      </item>
      <item>
       <widget class="QListWidget" name="listWidget">
