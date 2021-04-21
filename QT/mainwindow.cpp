@@ -19,13 +19,13 @@
 #include "QDateTime"
 
 #include <string>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
    }
 MainWindow::~MainWindow()
 {
@@ -36,7 +36,7 @@ MainWindow::~MainWindow()
 void MainWindow::SetText(const std::string& pattern){
     QString r = pattern.c_str();
     ui->textBrowser->append(r);
-
+    qDebug() << pattern.c_str();
 }
 
 
@@ -194,20 +194,18 @@ void MainWindow::on_pushButton_2_clicked()
         std::string s = ui->textBrowser->toPlainText().toStdString();
         std::vector<int> count;
         for(int i = 0; i < s.size(); i++){
-            for(int j = 0; j < p->GerBreak_().size(); j++){
-             if(p->GerBreak_()[j] == i){
+            for(int j = 0; j < p->GetBreak_().size(); j++){
                  v.push_back(new NextIterationCommand(&it));
                  count.push_back(i);
-               }
             }
         }
-          for(int j = 0; j <  v.size(); j++){
-             v[j]->execute(count[j]);
+          for(int j = 0; j <  p->GetBreak_().size(); j++){
+             v[j]->execute(p->GetBreak_()[j]);
              QEventLoop loop;
              QTimer::singleShot(1000, &loop, SLOT(quit()));
              loop.exec();
          }
- }
+ }/*
    if(ui->listWidget->currentItem()->text()=="Rabin Karp"){
 
        Substring_Search_Algorithms_* p = new Substring_Search_Algorithms_(new Naive);
@@ -234,6 +232,6 @@ void MainWindow::on_pushButton_2_clicked()
             QTimer::singleShot(1000, &loop, SLOT(quit()));
             loop.exec();
         }
- }
+ }*/
 }
 
