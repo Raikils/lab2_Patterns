@@ -52,7 +52,7 @@ std::vector<point> Naive::GetBreak_() {
 void Naive::SetBreak_(const int& i, const int& j, const bool& q) {
 	break_.push_back(point(i, j, q));
 }
-
+long long Rabina_Karpa::power(long x, long y) { if (y == 0) return 1; else return (power(x, y - 1) * x) % q; }
 Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {

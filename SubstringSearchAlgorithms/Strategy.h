@@ -50,7 +50,7 @@ public:
     void SetBreak_(const int& i, const int& j, const bool& q);
 	long long d;
     long long q;
-    long long power(long x, long y) { if (y == 0) return 1; else return (power(x, y - 1) * x) % q; }
+    long long power(long x, long y);
     Rabina_Karpa();
     std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
