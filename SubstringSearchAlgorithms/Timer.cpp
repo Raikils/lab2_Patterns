@@ -5,13 +5,15 @@
 int Timer::Search(const std::string& Line_1, const std::string& Line_2)
 {
 	unsigned int start = clock();
-	int r = Decorator::Search(Line_1, Line_2);
-	_time = clock() - start;
+        const int n = 100;
+        int r;
+        for (int i = 0; i < n; i++) r = Decorator::Search(Line_1, Line_2);
+        _time = 0.0 + (clock() - start + 0.0) / (n + 0.0);
 	return r;
 }
 
 
-unsigned int Timer::time()
+double Timer::time()
 {
 	return _time;
 }
