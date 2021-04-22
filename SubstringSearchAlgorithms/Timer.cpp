@@ -2,6 +2,8 @@
 #include "pch.h"
 #include "Timer.h"
 
+Timer::Timer(Substring_Search_Algorithms* w) : Decorator(w), _time{ 0 } {}
+
 int Timer::Search(const std::string& Line_1, const std::string& Line_2)
 {
 	unsigned int start = clock();
