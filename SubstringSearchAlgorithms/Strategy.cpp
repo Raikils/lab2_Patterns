@@ -134,35 +134,64 @@ void Horspool::SetBreak_(const int& i, const int& j, const bool& q) {
 }
 
 
-std::vector<int> KMP::pref(const std::string& p)
-{
-	std::vector<int> pi(p.size(), 0);
-	int i, j, k, l;
-	for (i = 1; i < p.size(); i++) {
-		for (j = 1; j <= i; j++) {
-			bool q = true;
-			for (k = 0, l = i - j + 1; k < j; k++, l++) {
-				if (p[k] != p[l]) { q = false; break; }
+int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
+	if (Line_2.size() == 0) {
+		return -1;
+	}
+	else if (Line_1.size() < Line_2.size()) {
+		return  -1;
+	}
+	size_t pos_in_first = 0;  
+	size_t pos_in_second = 0; 
+	std::deque<size_t> next_first_char; 
+	while (true) {
+		if (Line_2[pos_in_first] == Line_1[pos_in_second]) {
+			if (pos_in_first == Line_2.size() - 1) {
+			
+				return pos_in_second - pos_in_first;
 			}
-			if (q) pi[i] = j;
+			else {
+				if (Line_1[pos_in_second] == Line_2[0]) {
+				
+					next_first_char.push_back(pos_in_second);
+				}
+			
+				pos_in_first++;
+				if (pos_in_second == Line_1.size() - 1) {
+					return  -1;
+				}
+				else {
+					
+					pos_in_second++;
+				}
+			}
+		}
+		
+		else if (next_first_char.size() > 1) {
+		
+			pos_in_first = pos_in_second - next_first_char[1];
+		
+			next_first_char.pop_front();
+		}
+		
+		else {
+			
+			pos_in_first = 0;
+			if (Line_1[pos_in_second] != Line_2[0]) {
+				
+				if (pos_in_second == Line_1.size() - 1) {
+					
+					return  -1;
+				}
+				else {
+					pos_in_second++;
+				}
+			}
+			
+			next_first_char.clear();
 		}
 	}
-	return pi;
-}
 
-int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_2.size() > Line_1.size()) return -1;
-	if (Line_2.size() == 0) return -1;
-	std::vector<int> pi = pref(Line_2);
-	int q = 0;
-	for (int i = 0; i < Line_1.size(); i++) {
-		while (q > 0 && Line_2[q] != Line_1[i]) q = pi[q];
-		if (Line_2[q] == Line_1[i]) q++;
-		if (q == Line_2.size()) return i - Line_2.size() + 1;
-		//q = pi[q];
-	}
-	return -1;
-	
 }
 
 

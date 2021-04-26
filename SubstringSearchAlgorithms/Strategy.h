@@ -77,7 +77,6 @@ private:
 public:
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
-	std::vector<int> pref(const std::string& p);
     std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
     int Search(const std::string& Line_1, const std::string& Line_2);
 };
