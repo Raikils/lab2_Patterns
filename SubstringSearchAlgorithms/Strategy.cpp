@@ -56,28 +56,29 @@ long long Rabina_Karpa::power(long x, long y) { if (y == 0) return 1; else retur
 Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_2.size() > Line_1.size()) return -1;
-	if (Line_2.size() == 0) return -1;
-	long long h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
-	for (int i = 0; i < Line_2.size(); i++) {
-		t = (d * t + Line_2[i]) % q;
-		t0 = (d * t0 + Line_1[i]) % q;
-	}
-	for (int j = 0; j < Line_1.size() - Line_2.size() + 1; j++) {
-		if (t == t0) {
-			bool w = true;
-			for (int k = 0; k < Line_2.size(); k++) {
-				if (Line_2[k] != Line_1[j + k]) { 
-				w = false;
-			
-				}
-			}
-			if (w) return j;
-		}
-		t0 = (d * (t0 - Line_1[j] * h) + Line_1[j + Line_2.size()]) % q;
-		if (t0 < 0) t0 += q;
-	}
-	return -1;
+    if (Line_2.size() > Line_1.size()) return -1;
+    if (Line_2.size() == 0) return -1;
+    long long h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
+    for (int i = 0; i < Line_2.size(); i++) {
+            t = (d * t + Line_2[i]) % q;
+            t0 = (d * t0 + Line_1[i]) % q;
+    }
+    for (int j = 0; j < Line_1.size() - Line_2.size() + 1; j++) {
+            if (t == t0) {
+                    bool w = true;
+                    for (int k = 0; k < Line_2.size(); k++) {
+                            if (Line_2[k] != Line_1[j + k]) {
+                            w = false;
+            SetBreak_(j + k, k, false);
+            break;
+            } else SetBreak_(j + k, k, true);
+                    }
+                    if (w) return j;
+    } else { SetBreak_(j, 0, false); }
+            t0 = (d * (t0 - Line_1[j] * h) + Line_1[j + Line_2.size()]) % q;
+            if (t0 < 0) t0 += q;
+    }
+    return -1;
 }
 
 std::string Rabina_Karpa::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
@@ -106,19 +107,20 @@ std::vector<int> Horspool::shift_table(const std::string& p)
 }
 
 int Horspool::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_2.size() > Line_1.size()) return -1;
-	if (Line_2.size() == 0) return -1;
-	std::vector<int> t = shift_table(Line_2);
-	int i = Line_2.size() - 1;
-	while (i < Line_1.size()) {
-		bool q = true;
-		for (int k = 0; k < Line_2.size(); k++) {
-			if (Line_2[Line_2.size() - 1 - k] != Line_1[i - k]) { q = false; break; }
-		}
-		if (q) return i - Line_2.size() + 1;
-		i = i + t[Line_1[i]];
-	}
-	return -1;
+    if (Line_2.size() > Line_1.size()) return -1;
+    if (Line_2.size() == 0) return -1;
+    std::vector<int> t = shift_table(Line_2);
+    int i = Line_2.size() - 1;
+    while (i < Line_1.size()) {
+            bool q = true;
+            for (int k = 0; k < Line_2.size(); k++) {
+        if (Line_2[Line_2.size() - 1 - k] != Line_1[i - k]) { q = false; SetBreak_(i - k, Line_2.size() - 1 - k, false); break; }
+        else { SetBreak_(i - k, Line_2.size() - 1 - k, true); }
+            }
+            if (q) return i - Line_2.size() + 1;
+            i = i + t[Line_1[i]];
+    }
+    return -1;
 }
 
 std::string Horspool::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {

@@ -3,7 +3,13 @@
 
 #include <QMainWindow>
 #include "QTimer"
-
+#include "QDateTime"
+#include "MemoryUsage.h"
+#include "Visitor.h"
+#include "Strategy.h"
+#include "Decorator.h"
+#include "Timer.h"
+#include "point.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +36,5 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    bool enabled;
 };
 #endif // MAINWINDOW_H
