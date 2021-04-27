@@ -259,9 +259,11 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 		int pos = Line_2.length() - 1;
 
 		while (Line_2[pos] == Line_1[pos + shift]) {
+                        SetBreak_(pos, pos+shift, true);
 			if (pos == 0) return shift;
 			--pos;
 		}
+                SetBreak_(pos, pos+shift, false);
 
 		if (pos == Line_2.length() - 1) {
 			TStopTable::const_iterator stop_symbol = stop_table.find(Line_1[pos + shift]);
