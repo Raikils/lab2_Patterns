@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Strategy.h"
 #include "Visitor.h"
 #include "Timer.h"
@@ -52,33 +51,34 @@ std::vector<point> Naive::GetBreak_() {
 void Naive::SetBreak_(const int& i, const int& j, const bool& q) {
 	break_.push_back(point(i, j, q));
 }
+
 long long Rabina_Karpa::power(long x, long y) { if (y == 0) return 1; else return (power(x, y - 1) * x) % q; }
 Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
-    if (Line_2.size() > Line_1.size()) return -1;
-    if (Line_2.size() == 0) return -1;
-    long long h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
-    for (int i = 0; i < Line_2.size(); i++) {
-            t = (d * t + Line_2[i]) % q;
-            t0 = (d * t0 + Line_1[i]) % q;
-    }
-    for (int j = 0; j < Line_1.size() - Line_2.size() + 1; j++) {
-            if (t == t0) {
-                    bool w = true;
-                    for (int k = 0; k < Line_2.size(); k++) {
-                            if (Line_2[k] != Line_1[j + k]) {
-                            w = false;
-            SetBreak_(j + k, k, false);
-            break;
-            } else SetBreak_(j + k, k, true);
-                    }
-                    if (w) return j;
-    } else { SetBreak_(j, 0, false); }
-            t0 = (d * (t0 - Line_1[j] * h) + Line_1[j + Line_2.size()]) % q;
-            if (t0 < 0) t0 += q;
-    }
-    return -1;
+	if (Line_2.size() > Line_1.size()) return -1;
+	if (Line_2.size() == 0) return -1;
+	long long h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
+	for (int i = 0; i < Line_2.size(); i++) {
+		t = (d * t + Line_2[i]) % q;
+		t0 = (d * t0 + Line_1[i]) % q;
+	}
+	for (int j = 0; j < Line_1.size() - Line_2.size() + 1; j++) {
+		if (t == t0) {
+			bool w = true;
+			for (int k = 0; k < Line_2.size(); k++) {
+				if (Line_2[k] != Line_1[j + k]) { 
+				w = false;
+                SetBreak_(j + k, k, false);
+                break;
+                } else SetBreak_(j + k, k, true);
+			}
+			if (w) return j;
+        } else { SetBreak_(j, 0, false); }
+		t0 = (d * (t0 - Line_1[j] * h) + Line_1[j + Line_2.size()]) % q;
+		if (t0 < 0) t0 += q;
+	}
+	return -1;
 }
 
 std::string Rabina_Karpa::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
@@ -107,20 +107,20 @@ std::vector<int> Horspool::shift_table(const std::string& p)
 }
 
 int Horspool::Search(const std::string& Line_1, const std::string& Line_2) {
-    if (Line_2.size() > Line_1.size()) return -1;
-    if (Line_2.size() == 0) return -1;
-    std::vector<int> t = shift_table(Line_2);
-    int i = Line_2.size() - 1;
-    while (i < Line_1.size()) {
-            bool q = true;
-            for (int k = 0; k < Line_2.size(); k++) {
-        if (Line_2[Line_2.size() - 1 - k] != Line_1[i - k]) { q = false; SetBreak_(i - k, Line_2.size() - 1 - k, false); break; }
-        else { SetBreak_(i - k, Line_2.size() - 1 - k, true); }
-            }
-            if (q) return i - Line_2.size() + 1;
-            i = i + t[Line_1[i]];
-    }
-    return -1;
+	if (Line_2.size() > Line_1.size()) return -1;
+	if (Line_2.size() == 0) return -1;
+	std::vector<int> t = shift_table(Line_2);
+	int i = Line_2.size() - 1;
+	while (i < Line_1.size()) {
+		bool q = true;
+		for (int k = 0; k < Line_2.size(); k++) {
+            if (Line_2[Line_2.size() - 1 - k] != Line_1[i - k]) { q = false; SetBreak_(i - k, Line_2.size() - 1 - k, false); break; }
+            else { SetBreak_(i - k, Line_2.size() - 1 - k, true); }
+		}
+		if (q) return i - Line_2.size() + 1;
+		i = i + t[Line_1[i]];
+	}
+	return -1;
 }
 
 std::string Horspool::accept(Visitor& v, const std::string& Line_1, const std::string& Line_2) {
@@ -137,63 +137,65 @@ void Horspool::SetBreak_(const int& i, const int& j, const bool& q) {
 
 
 int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_2.size() == 0) {
-		return -1;
-	}
-	else if (Line_1.size() < Line_2.size()) {
-		return  -1;
-	}
-	size_t pos_in_first = 0;  
-	size_t pos_in_second = 0; 
-	std::deque<size_t> next_first_char; 
-	while (true) {
-		if (Line_2[pos_in_first] == Line_1[pos_in_second]) {
-			if (pos_in_first == Line_2.size() - 1) {
-			
-				return pos_in_second - pos_in_first;
-			}
-			else {
-				if (Line_1[pos_in_second] == Line_2[0]) {
-				
-					next_first_char.push_back(pos_in_second);
-				}
-			
-				pos_in_first++;
-				if (pos_in_second == Line_1.size() - 1) {
-					return  -1;
-				}
-				else {
-					
-					pos_in_second++;
-				}
-			}
-		}
-		
-		else if (next_first_char.size() > 1) {
-		
-			pos_in_first = pos_in_second - next_first_char[1];
-		
-			next_first_char.pop_front();
-		}
-		
-		else {
-			
-			pos_in_first = 0;
-			if (Line_1[pos_in_second] != Line_2[0]) {
-				
-				if (pos_in_second == Line_1.size() - 1) {
-					
-					return  -1;
-				}
-				else {
-					pos_in_second++;
-				}
-			}
-			
-			next_first_char.clear();
-		}
-	}
+    if (Line_2.size() == 0) {
+            return -1;
+        }
+        else if (Line_1.size() < Line_2.size()) {
+            return  -1;
+        }
+        size_t pos_in_first = 0;
+        size_t pos_in_second = 0;
+        std::deque<size_t> next_first_char;
 
+        while (true) {
+            if (Line_1[pos_in_second] == Line_2[pos_in_first] ) {
+                if(pos_in_first!=0 && pos_in_first != Line_2.size() - 1){
+                    SetBreak_(pos_in_second, pos_in_first, true);
+                }
+                if (pos_in_first == Line_2.size() - 1) {
+                    SetBreak_(pos_in_second, pos_in_first, true);
+                    return pos_in_second - pos_in_first;
+                }
+                else {
+                    if (Line_1[pos_in_second] == Line_2[0]) {
+                        SetBreak_(pos_in_second, 0, true);
+
+                        next_first_char.push_back(pos_in_second);
+
+                    }
+                    pos_in_first++;
+                    if (pos_in_second == Line_1.size() - 1) {
+                        return  -1;
+                    }
+                    else {
+                        pos_in_second++;
+                    }
+                }
+            }
+            else if (next_first_char.size() > 1) {
+                SetBreak_(pos_in_second, pos_in_first, false);
+                container_table.push_back(next_first_char);
+                pos_in_first = pos_in_second - next_first_char[1];
+                next_first_char.pop_front();
+
+            }
+            else {
+                SetBreak_(pos_in_second, pos_in_first, false);
+                pos_in_first = 0;
+                if (Line_1[pos_in_second] != Line_2[0]) {
+
+                    if (pos_in_second == Line_1.size() - 1) {
+                        return  -1;
+                    }
+                    else {
+                        pos_in_second++;
+
+                    }
+                }
+
+                next_first_char.clear();
+            }
+        }
 }
 
 
@@ -201,12 +203,16 @@ std::string KMP::accept(Visitor& v, const std::string& Line_1, const std::string
 	return v.visit(this,Line_1,Line_2);
 }
 
+
+
 std::vector<point> KMP::GetBreak_() {
 	return this->break_;
 }
 void KMP::SetBreak_(const int& i, const int& j, const bool& q) {
-	break_.push_back(point(i, j, q));
+    break_.push_back(point(i, j, q));
 }
+
+
 
 std::vector<int> Boyer_Moor::prefix_func(const std::string& s) {
 	std::vector<int> p(s.length());
@@ -235,8 +241,8 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 		return Line_1.length();
 	}
 
-        typedef std::map<char, int> TStopTable;
-        typedef std::map<int, int> TSufficsTable;
+    typedef std::map<char, int> TStopTable;
+    typedef std::map<int, int> TSufficsTable;
 	TStopTable stop_table;
 	TSufficsTable suffics_table;
 
@@ -259,18 +265,25 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 		int pos = Line_2.length() - 1;
 
 		while (Line_2[pos] == Line_1[pos + shift]) {
-			if (pos == 0) return shift;
-			--pos;
-		}
+             SetBreak_(pos+shift,pos,true);
+            if (pos == 0)
+                return shift;
+              --pos;
 
+            }
 		if (pos == Line_2.length() - 1) {
 			TStopTable::const_iterator stop_symbol = stop_table.find(Line_1[pos + shift]);
-			int stop_symbol_additional = pos - (stop_symbol != stop_table.end() ? stop_symbol->second : -1);
+            int stop_symbol_additional = pos - (stop_symbol != stop_table.end() ? stop_symbol->second : -1);
+
 			shift += stop_symbol_additional;
+             SetBreak_(shift,pos, false);
 		}
 		else {
+            SetBreak_(pos+shift,pos, false);
 			shift += suffics_table[Line_2.length() - pos - 1];
+
 		}
+
 	}
 
 	return -1;

@@ -36,5 +36,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    bool enabled;
 };
 #endif // MAINWINDOW_H

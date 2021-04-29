@@ -47,4 +47,23 @@ public:
     ~Iterations_Horspool();
 };
 
+class Iterations_KMP : public Iterations_
+{
+public:
+
+    Iterations_KMP(MainWindow* m1): Iterations_(m1) {}
+    void preprint();
+    bool hash(const point &w);
+    ~Iterations_KMP();
+};
+
+class Iterations_Boyer_Moor : public Iterations_
+{
+public:
+    Iterations_Boyer_Moor(MainWindow* m1): Iterations_(m1) {}
+    void preprint();
+    bool hash(const point &w);
+    ~Iterations_Boyer_Moor();
+};
+
 #endif // ITERATIONS_H

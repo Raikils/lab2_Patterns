@@ -76,27 +76,26 @@ void MainWindow::on_pushButton_start_clicked()
         ui->textBrowser_Complexity->setText(s);
     }
     if (ui->checkBox_memory->isChecked()) {
-        /*  MemoryUsage mem;
-    SetCurrentUsage();
-        QString w = QString::number(n);
+        MemoryUsage mem;
+        SetCurrentUsage();
         if(mem.CurrentUsage()>0){
             SetCurrentUsage();
         }
         AmountOfMemoryOfTheAlgorithm m;
-        QString m1 = p->accept(m,a,b).c_str();
-        ui->textBrowser_Memory->setText(m1);*/
+        QString m1 = p->accept(m,text,pattern).c_str();
+        ui->textBrowser_Memory->setText(m1);
     }
     if (position != -1) {
         ui->textBrowser_iterations->append(s.c_str());
     }
     if (ui->checkBox_iterations->isChecked()) {
-        if (position == -1) { s = text; s = "<font size=20>" + s + "</font>"; ui->textBrowser_iterations->append(s.c_str()); }
+        if (position == -1) { s = text; s = "<font size=7>" + s + "</font>"; ui->textBrowser_iterations->append(s.c_str()); }
         Iterations_ *it;
         if(ui->listWidget_algorithms->currentItem()->text()=="Naive") it = new Iterations_Naive(this);
         if(ui->listWidget_algorithms->currentItem()->text()=="Rabin Karp") it = new Iterations_Rabina_Karpa(this);
-        //if(ui->listWidget_algorithms->currentItem()->text()=="KMP")
+        if(ui->listWidget_algorithms->currentItem()->text()=="KMP") it = new Iterations_KMP(this);
         if(ui->listWidget_algorithms->currentItem()->text()=="Horspool") it = new Iterations_Horspool(this);
-        //if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor")
+        if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor") it = new Iterations_Boyer_Moor(this);
         it->print(p);
     }
 }

@@ -26,6 +26,8 @@ void Iterations_::print(Substring_Search_Algorithms_ *p)
     }
 }
 
+
+
 void Iterations_Naive::preprint()
 {
     return;
@@ -84,12 +86,45 @@ void Iterations_Horspool::preprint()
         s += ")";
         }
     }
-    delete h;
+
     m->SetText(s);
     std::string s1 = m->GetText(); s1 = "<font size=20>" + s1 + "</font>"; m->SetText(s1);
 }
 
 bool Iterations_Horspool::hash(const point &w)
+{
+    return true;
+}
+
+void Iterations_KMP::preprint()
+{
+    KMP* k = new KMP;
+    k->Search(m->GetText(),m->GetPattern());
+    std::string t;
+    for(int i = 0; i < k->container_table.size(); i++){
+          for(int j = 0; j < k->container_table[i].size(); j++){
+             t += std::to_string(k->container_table[i][j])+"   ";
+        }
+    }
+    delete k;
+    m->SetText(t);
+
+}
+
+
+
+bool Iterations_KMP::hash(const point &w)
+{
+    return true;
+}
+
+
+void Iterations_Boyer_Moor::preprint()
+{
+     return;
+}
+
+bool Iterations_Boyer_Moor::hash(const point &w)
 {
     return true;
 }

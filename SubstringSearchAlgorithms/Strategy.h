@@ -5,20 +5,15 @@
 #include <map>
 #include <vector>
 #include "point.h"
-
-
-#ifdef SubstringSearchAlgorithms_lib
-#define DECLSPEC __declspec(dllexport)
-#else
-#define DECLSPEC __declspec(dllimport)
-#endif
+#include <utility>
+#include <deque>
 
 
 //A class hierarchy that defines the algorithms for finding a contract
 class  Substring_Search_Algorithms
 {
 public:
-    virtual ~Substring_Search_Algorithms() {}
+   virtual ~Substring_Search_Algorithms() {}
    virtual std::string accept(class Visitor& v, const std::string& Line_1, const std::string& Line_2) = 0;
    virtual int Search(const std::string& Line_1, const std::string& Line_2) = 0;
    virtual std::vector<point> GetBreak_() = 0;
@@ -75,6 +70,7 @@ class  KMP : public Substring_Search_Algorithms
 private:
     std::vector<point> break_;
 public:
+    std::vector<std::deque<size_t> > container_table;
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
     std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
@@ -100,6 +96,7 @@ class  Substring_Search_Algorithms_ : public Substring_Search_Algorithms
 {
 private:
     std::vector<point> break_;
+
 public:
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
