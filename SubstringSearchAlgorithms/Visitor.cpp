@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Visitor.h"
 
 /*virtual*/std::string ComplexityOfTheAlgorithm::visit(Naive *p, const std::string& Line_1, const std::string& Line_2)
@@ -148,7 +147,6 @@ std::string AmountOfMemoryOfTheAlgorithm::visit(Rabina_Karpa* p, const std::stri
 
 std::string AmountOfMemoryOfTheAlgorithm::visit(KMP* p, const std::string& Line_1, const std::string& Line_2) {
     int* a = new int[7];
-    p->pref(Line_2);
     p->Search(Line_1, Line_2);
     return PrintUsage();
    
