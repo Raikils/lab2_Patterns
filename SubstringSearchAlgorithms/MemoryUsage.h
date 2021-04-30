@@ -26,4 +26,3 @@ void*  operator new(size_t size);
 void DECLSPEC operator delete(void* memory, int size);
 
 extern DECLSPEC std::string PrintUsage();
-

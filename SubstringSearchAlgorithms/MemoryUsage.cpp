@@ -30,7 +30,7 @@ void SetCurrentUsage()
  {
 	 
 	 std::string c = std::to_string(s_MemoryUsage.CurrentUsage());
-	 return "Memory Usage: " + c + " bytes\n";
+     return c ;
  }
  
  

@@ -36,5 +36,3 @@ class  AmountOfMemoryOfTheAlgorithm : public Visitor
     std::string visit(Horspool* p, const std::string& Line_1, const std::string& Line_2);
     std::string visit(Boyer_Moor* p, const std::string& Line_1, const std::string& Line_2);
 };
-
-
