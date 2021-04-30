@@ -83,6 +83,10 @@ class  Boyer_Moor : public Substring_Search_Algorithms
 private:
     std::vector<point> break_;
 public:
+    typedef std::map<char, int> TStopTable_;
+    typedef std::map<int, int> TSufficsTable_;
+    TStopTable_ stop_table_;
+    TSufficsTable_ suffics_table_;
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
     std::vector<int> prefix_func(const std::string& s);

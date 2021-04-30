@@ -4,6 +4,8 @@
 #include <string>
 #include <QDebug>
 #include "iterations.h"
+#include <thread>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +18,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+int MainWindow::GetTimeIteration()
+{
+    return this->ui->horizontalSlider_spead_iterations->value();
+}
 
 void MainWindow::SetText(const std::string& pattern){
     QString r = pattern.c_str();
@@ -66,30 +73,38 @@ void MainWindow::on_pushButton_start_clicked()
         s = "<font size=20>" + s + "</font>";
     }
     if (ui->checkBox_time->isChecked()) {
-        Timer *t = new Timer(p);
+        Substring_Search_Algorithms_* p1 = p;
+        Timer *t = new Timer(p1);
         t->Search(text,pattern);
         ui->textBrowser_Time->setText(QString::number(t->time()));
+        ui->checkBox_time->setChecked(false);
+        delete t;
     }
     if (ui->checkBox_complexity->isChecked()) {
+
         ComplexityOfTheAlgorithm r;
         QString s = p->accept(r,text,pattern).c_str();
         ui->textBrowser_Complexity->setText(s);
+        ui->checkBox_complexity->setChecked(false);
     }
-    if (ui->checkBox_memory->isChecked()) {
+   if (ui->checkBox_memory->isChecked()) {
         MemoryUsage mem;
         SetCurrentUsage();
         if(mem.CurrentUsage()>0){
             SetCurrentUsage();
         }
         AmountOfMemoryOfTheAlgorithm m;
+
         QString m1 = p->accept(m,text,pattern).c_str();
         ui->textBrowser_Memory->setText(m1);
+        ui->checkBox_memory->setChecked(false);
     }
     if (position != -1) {
         ui->textBrowser_iterations->append(s.c_str());
     }
-    if (ui->checkBox_iterations->isChecked()) {
-        if (position == -1) { s = text; s = "<font size=7>" + s + "</font>"; ui->textBrowser_iterations->append(s.c_str()); }
+    if (ui->checkBox_iterations->isChecked() && ui->checkBox_time->isChecked()==false && ui->checkBox_complexity->isChecked()==false && ui->checkBox_memory->isChecked()==false) {
+        if (position == -1) { s = text; s = "<font size=7>" + s + "</font>";
+            ui->textBrowser_iterations->append(s.c_str()); }
         Iterations_ *it;
         if(ui->listWidget_algorithms->currentItem()->text()=="Naive") it = new Iterations_Naive(this);
         if(ui->listWidget_algorithms->currentItem()->text()=="Rabin Karp") it = new Iterations_Rabina_Karpa(this);
@@ -98,6 +113,8 @@ void MainWindow::on_pushButton_start_clicked()
         if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor") it = new Iterations_Boyer_Moor(this);
         it->print(p);
     }
+
+
 }
 
 void MainWindow::on_checkBox_iterations_stateChanged(int arg1)

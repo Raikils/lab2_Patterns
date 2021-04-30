@@ -248,43 +248,40 @@ int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
 
 	for (int i = 0; i < Line_2.length(); ++i) {
 		stop_table[Line_2[i]] = i;
+        stop_table_[Line_2[i]] = i;
 	}
 
 	std::string rt(Line_2.rbegin(), Line_2.rend());
 	std::vector<int> p = prefix_func(Line_2), pr = prefix_func(rt);
 	for (int i = 0; i < Line_2.length() + 1; ++i) {
 		suffics_table[i] = Line_2.length() - p.back();
+        suffics_table_[i] = Line_2.length() - p.back();
 	}
 
 	for (int i = 1; i < Line_2.length(); ++i) {
 		int j = pr[i];
                 suffics_table[j] =std::min(suffics_table[j], i - pr[i] + 1);
+                suffics_table_[j] =std::min(suffics_table[j], i - pr[i] + 1);
 	}
 
 	for (int shift = 0; shift <= Line_1.length() - Line_2.length();) {
 		int pos = Line_2.length() - 1;
 
 		while (Line_2[pos] == Line_1[pos + shift]) {
-<<<<<<< HEAD
              SetBreak_(pos+shift,pos,true);
             if (pos == 0)
                 return shift;
               --pos;
-=======
-                        SetBreak_(pos, pos+shift, true);
-			if (pos == 0) return shift;
-			--pos;
-		}
-                SetBreak_(pos, pos+shift, false);
->>>>>>> f7f0b7ff013701f0ed1b1faf9ded52d31bde6e65
 
             }
 		if (pos == Line_2.length() - 1) {
 			TStopTable::const_iterator stop_symbol = stop_table.find(Line_1[pos + shift]);
+
             int stop_symbol_additional = pos - (stop_symbol != stop_table.end() ? stop_symbol->second : -1);
 
-			shift += stop_symbol_additional;
-             SetBreak_(shift,pos, false);
+            shift += stop_symbol_additional;
+
+            SetBreak_(shift,pos, false);
 		}
 		else {
             SetBreak_(pos+shift,pos, false);

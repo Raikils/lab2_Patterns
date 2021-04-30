@@ -18,12 +18,15 @@ void Iterations_::print(Substring_Search_Algorithms_ *p)
         s += "</font>";
         if(index.j != pattern.size() - 1) s += pattern.substr(index.j + 1, pattern.size() - 1);
         s += "</font></b></pre>";
-        m->SetText(s);
+          m->SetText(s);
         }
+
         QEventLoop loop;
-        QTimer::singleShot(1000, &loop, SLOT(quit()));
+        QTimer::singleShot(m->GetTimeIteration(), &loop, SLOT(quit()));
         loop.exec();
     }
+
+    delete p;
 }
 
 
@@ -121,7 +124,26 @@ bool Iterations_KMP::hash(const point &w)
 
 void Iterations_Boyer_Moor::preprint()
 {
-     return;
+
+    Boyer_Moor* b = new Boyer_Moor;
+    b->Search(m->GetText(),m->GetPattern());
+    std::string t;
+
+    for(int i = 0; i < b->prefix_func(m->GetPattern()).size(); i++){
+              t += std::to_string(b->prefix_func(m->GetPattern())[i])+"   ";
+    }
+    m->SetText(t);
+    t.clear();
+    for(int i = 0; i < b->suffics_table_.size(); i++){
+              t += std::to_string(b->suffics_table_[i])+"   ";
+    }
+    m->SetText(t);
+    t.clear();
+    for(int i = 0; i < b->stop_table_.size(); i++){
+         t += std::to_string(b->stop_table_[i])+"   ";
+    }
+    delete b;
+    m->SetText(t);
 }
 
 bool Iterations_Boyer_Moor::hash(const point &w)

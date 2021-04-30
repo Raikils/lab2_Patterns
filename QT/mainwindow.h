@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    int GetTimeIteration();
     void SetText(const std::string& pattern);
     std::string GetPattern();
     std::string GetText();
