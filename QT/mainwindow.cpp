@@ -64,6 +64,7 @@ void MainWindow::on_pushButton_start_clicked()
     ui->textBrowser_Time->clear();
     ui->textBrowser_iterations->clear();
     _stop = true;
+    SetCurrentUsage();
     Substring_Search_Algorithms_* p;
     if(ui->listWidget_algorithms->currentItem()->text()=="Naive")  p = new Substring_Search_Algorithms_(new Naive);
     if(ui->listWidget_algorithms->currentItem()->text()=="Rabin Karp") p = new Substring_Search_Algorithms_(new Rabina_Karpa);
@@ -97,13 +98,12 @@ void MainWindow::on_pushButton_start_clicked()
         ui->textBrowser_Complexity->setText(s);
     }
    if (ui->checkBox_memory->isChecked()) {
+
         MemoryUsage mem;
-        SetCurrentUsage();
         if(mem.CurrentUsage()>0){
             SetCurrentUsage();
         }
         AmountOfMemoryOfTheAlgorithm m;
-
         QString m1 = p->accept(m,text,pattern).c_str();
         ui->textBrowser_Memory->setText(m1);
     }
