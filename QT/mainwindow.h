@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 
 public:
     int GetTimeIteration();
+    bool is_Iteration_works();
     void SetText(const std::string& pattern);
     std::string GetPattern();
     std::string GetText();
@@ -37,6 +38,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    bool enabled;
+    bool _stop;
 };
 #endif // MAINWINDOW_H

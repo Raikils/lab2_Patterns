@@ -8,16 +8,17 @@ void Iterations_::print(Substring_Search_Algorithms_ *p)
     std::string s;
     std::string pattern = m->GetPattern();
     for (const auto &index : p->GetBreak_()) {
+        if (!m->is_Iteration_works()) break;
         if (hash(index)) {
         s.clear();
-        s = "<pre><b><font size=20>";
+        s = "<pre><font size=20>";
         for (int i = 0; i < index.i - index.j; i++) s+= " ";
         if(index.j > 0) s += pattern.substr(0, index.j);
         if (index.q) s += "<font color=green>"; else s += "<font color=red>";
         s += pattern[index.j];
         s += "</font>";
         if(index.j != pattern.size() - 1) s += pattern.substr(index.j + 1, pattern.size() - 1);
-        s += "</font></b></pre>";
+        s += "</font></pre>";
           m->SetText(s);
         }
 
@@ -25,8 +26,6 @@ void Iterations_::print(Substring_Search_Algorithms_ *p)
         QTimer::singleShot(m->GetTimeIteration(), &loop, SLOT(quit()));
         loop.exec();
     }
-
-    delete p;
 }
 
 
@@ -69,8 +68,9 @@ bool Iterations_Rabina_Karpa::hash(const point &w)
     }
     if (!w.q) {
         if (pattern_hash != window) {m->SetText("hash(" + text + ")=" + std::to_string(window)); return false; }
-        else return true;
-    } else return true;
+    }
+    if (w.j == 0) m->SetText("<pre><font size=20>" + text + "</font></pre>");
+    return true;
 }
 
 void Iterations_Horspool::preprint()
