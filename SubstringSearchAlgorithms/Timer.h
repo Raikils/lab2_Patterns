@@ -2,11 +2,6 @@
 #include "Decorator.h"
 #include <ctime>
 
-#ifdef SubstringSearchAlgorithms_lib
-#define DECLSPEC __declspec(dllexport)
-#else
-#define DECLSPEC __declspec(dllimport)
-#endif
 
 class  Timer : public Decorator
 {

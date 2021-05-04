@@ -1,12 +1,6 @@
 #pragma once
 #include "Strategy.h"
 
-#ifdef SubstringSearchAlgorithms_lib
-#define DECLSPEC __declspec(dllexport)
-#else
-#define DECLSPEC __declspec(dllimport)
-#endif
-
 class Decorator: public Substring_Search_Algorithms
 {
 private:

@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Timer.h"
 
 Timer::Timer(Substring_Search_Algorithms* w) : Decorator(w), _time{ 0 } {}

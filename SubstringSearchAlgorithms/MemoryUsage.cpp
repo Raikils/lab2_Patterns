@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "MemoryUsage.h"
 
 int MemoryUsage::CurrentUsage() { return TotalAllocated - TotalFreed; }

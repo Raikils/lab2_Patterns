@@ -113,8 +113,7 @@ void MainWindow::on_pushButton_start_clicked()
         if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor") it = new Iterations_Boyer_Moor(this);
         it->print(p);
     }
-
-
+    delete p;
 }
 
 void MainWindow::on_checkBox_iterations_stateChanged(int arg1)

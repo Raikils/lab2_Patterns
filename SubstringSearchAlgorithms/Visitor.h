@@ -1,13 +1,6 @@
 #pragma once
 #include "Strategy.h"
 #include <string>
-#include "MemoryUsage.h"
-
-#ifdef SubstringSearchAlgorithms_lib
-#define DECLSPEC __declspec(dllexport)
-#else
-#define DECLSPEC __declspec(dllimport)
-#endif
 
 class  Visitor
 {

@@ -4,7 +4,8 @@
 
 //Implement of algorithms
 int Naive::Search(const std::string& Line_1, const std::string& Line_2) {
-   if (Line_2.size() == 0) {
+    break_.clear();
+    if (Line_2.size() == 0) {
 		return -1;
 	}
 	else if (Line_1.size() < Line_2.size()) {
@@ -56,7 +57,8 @@ long long Rabina_Karpa::power(long x, long y) { if (y == 0) return 1; else retur
 Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
 
 int Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_2.size() > Line_1.size()) return -1;
+    break_.clear();
+    if (Line_2.size() > Line_1.size()) return -1;
 	if (Line_2.size() == 0) return -1;
 	long long h = power(d, (Line_2.size() - 1)) % q, t = 0, t0 = 0;
 	for (int i = 0; i < Line_2.size(); i++) {
@@ -107,7 +109,8 @@ std::vector<int> Horspool::shift_table(const std::string& p)
 }
 
 int Horspool::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_2.size() > Line_1.size()) return -1;
+    break_.clear();
+    if (Line_2.size() > Line_1.size()) return -1;
 	if (Line_2.size() == 0) return -1;
 	std::vector<int> t = shift_table(Line_2);
 	int i = Line_2.size() - 1;
@@ -137,6 +140,7 @@ void Horspool::SetBreak_(const int& i, const int& j, const bool& q) {
 
 
 int KMP::Search(const std::string& Line_1, const std::string& Line_2) {
+    break_.clear();
     if (Line_2.size() == 0) {
             return -1;
         }
@@ -233,7 +237,8 @@ std::vector<int> Boyer_Moor::prefix_func(const std::string& s) {
 
 
 int Boyer_Moor::Search(const std::string& Line_1, const std::string& Line_2) {
-	if (Line_1.length() < Line_2.length()) {
+    break_.clear();
+    if (Line_1.length() < Line_2.length()) {
 		return -1;
 	}
 
