@@ -312,7 +312,7 @@
            <widget class="QTextBrowser" name="textBrowser_Complexity">
             <property name="minimumSize">
              <size>
-              <width>150</width>
+              <width>200</width>
               <height>0</height>
              </size>
             </property>
@@ -335,7 +335,7 @@
         <item>
          <widget class="QPushButton" name="pushButton_clear">
           <property name="text">
-           <string>Clear</string>
+           <string>Stop</string>
           </property>
          </widget>
         </item>
