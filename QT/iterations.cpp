@@ -2,6 +2,7 @@
 
 //Iterations_::Iterations_(MainWindow *m1)
 
+/*!Print the iterations of algorythms function*/
 void Iterations_::print(Substring_Search_Algorithms_ *p)
 {
     preprint();
@@ -29,22 +30,22 @@ void Iterations_::print(Substring_Search_Algorithms_ *p)
 }
 
 
-
+/*!No extra structures for Naive algorythm*/
 void Iterations_Naive::preprint()
 {
     return;
 }
-
+/*!No hash-function for Naive algorythm*/
 bool Iterations_Naive::hash(const point &w)
 {
     return true;
 }
-
+/*!Destructor of Iterations_Naive*/
 Iterations_Naive::~Iterations_Naive()
 {
 
 }
-
+/*!Print data which is used for hashing*/
 void Iterations_Rabina_Karpa::preprint()
 {
     std::string pattern = m->GetPattern();
@@ -57,7 +58,7 @@ void Iterations_Rabina_Karpa::preprint()
     m->SetText("hash(" + pattern + ")=" + std::to_string(pattern_hash));
     delete r;
 }
-
+/*!Print hash-values of substrings*/
 bool Iterations_Rabina_Karpa::hash(const point &w)
 {
     long long window = 0;
@@ -72,7 +73,7 @@ bool Iterations_Rabina_Karpa::hash(const point &w)
     if (w.j == 0) m->SetText("<pre><font size=20>" + text + "</font></pre>");
     return true;
 }
-
+/*!Offset-table for Horspool algorythm*/
 void Iterations_Horspool::preprint()
 {
     Horspool* h = new Horspool;
@@ -93,12 +94,12 @@ void Iterations_Horspool::preprint()
     m->SetText(s);
     std::string s1 = m->GetText(); s1 = "<font size=20>" + s1 + "</font>"; m->SetText(s1);
 }
-
+/*!No hash-function for Horspool algorythm*/
 bool Iterations_Horspool::hash(const point &w)
 {
     return true;
 }
-
+/*!Preprint for KMP algorythm*/
 void Iterations_KMP::preprint()
 {
     KMP* k = new KMP;
@@ -115,13 +116,13 @@ void Iterations_KMP::preprint()
 }
 
 
-
+/*!No hash-function for KMP algorythm*/
 bool Iterations_KMP::hash(const point &w)
 {
     return true;
 }
 
-
+/*!Prefix and suffics functions for Boyer-Moor algorythm*/
 void Iterations_Boyer_Moor::preprint()
 {
 
@@ -145,7 +146,7 @@ void Iterations_Boyer_Moor::preprint()
     delete b;
     m->SetText(t);
 }
-
+/*!No hash-function for Boyer-Moor algorythm*/
 bool Iterations_Boyer_Moor::hash(const point &w)
 {
     return true;
