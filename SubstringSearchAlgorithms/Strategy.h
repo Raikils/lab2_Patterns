@@ -10,15 +10,15 @@
 
 
 /*!A class hierarchy that defines the algorithms for finding a contract*/
-class  Substring_Search_Algorithms
+class  Substring_Search_Algorithm
 {
 public:
     /*!Virtual destructor*/
-   virtual ~Substring_Search_Algorithms() {}
+   virtual ~Substring_Search_Algorithm() {}
      /*!Virtual method accept for pattern visitor*/
-   virtual std::string accept(class Visitor& v, const std::string& Line_1, const std::string& Line_2) = 0;
+   virtual std::string accept(class Visitor& v, const std::string& Text, const std::string& Pattern) = 0;
      /*!Virtual method for finding a substring*/
-   virtual int Search(const std::string& Line_1, const std::string& Line_2) = 0;
+   virtual int Search(const std::string& Text, const std::string& Pattern) = 0;
      /*!Virtual method for finding comparative characters*/
    virtual std::vector<point> GetBreak_() = 0;
      /*!Virtual method for inserting comparative characters*/
@@ -29,7 +29,7 @@ public:
 
 
 /*!Naive algorithm!*/
-class  Naive : public Substring_Search_Algorithms
+class  Naive : public Substring_Search_Algorithm
 {
 private:
     /*!Vector for saving comparative symbols!*/
@@ -38,12 +38,12 @@ public:
 
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
-	std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
-    int Search(const std::string& Line_1, const std::string& Line_2);
+    std::string accept(Visitor& v, const std::string& Text, const std::string& Pattern);
+    int Search(const std::string& Text, const std::string& Pattern);
 };
 
 //Rabina Karpa algorithm
-class  Rabina_Karpa : public Substring_Search_Algorithms
+class  Rabina_Karpa : public Substring_Search_Algorithm
 {
 private:
     std::vector<point> break_;
@@ -56,12 +56,12 @@ public:
     long long power(long x, long y);
     /*!Constructor for Rabin Karp!*/
     Rabina_Karpa();
-    std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
-    int Search(const std::string& Line_1, const std::string& Line_2);
+    std::string accept(Visitor& visitor, const std::string& Text, const std::string& Pattern);
+    int Search(const std::string& Text, const std::string& Pattern);
 };
 
 //Horspool algorithm
-class  Horspool : public Substring_Search_Algorithms
+class  Horspool : public Substring_Search_Algorithm
 {
 private:
     std::vector<point> break_;
@@ -69,13 +69,13 @@ public:
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
      /*!Method for creating shift table!*/
-	std::vector<int> shift_table(const std::string& p);
-    std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
-    int Search(const std::string& Line_1, const std::string& Line_2);
+    std::vector<int> shift_table(const std::string& Pattern);
+    std::string accept(Visitor& v, const std::string& Text, const std::string& Pattern);
+    int Search(const std::string& Text, const std::string& Pattern);
 };
 
 //KMP algorithm
-class  KMP : public Substring_Search_Algorithms
+class  KMP : public Substring_Search_Algorithm
 {
 private:
     std::vector<point> break_;
@@ -84,12 +84,12 @@ public:
     std::vector<std::deque<size_t> > container_table;
     std::vector<point> GetBreak_();
     void SetBreak_(const int& i, const int& j, const bool& q);
-    std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
-    int Search(const std::string& Line_1, const std::string& Line_2);
+    std::string accept(Visitor& v, const std::string& Text, const std::string& Pattern);
+    int Search(const std::string& Text, const std::string& Pattern);
 };
 
 //Boyer Moor algorithm
-class  Boyer_Moor : public Substring_Search_Algorithms
+class  Boyer_Moor : public Substring_Search_Algorithm
 {
 private:
     std::vector<point> break_;
@@ -104,24 +104,8 @@ public:
     void SetBreak_(const int& i, const int& j, const bool& q);
       /*!Prefix function!*/
     std::vector<int> prefix_func(const std::string& s);
-    std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
-    int Search(const std::string& Line_1, const std::string& Line_2);
+    std::string accept(Visitor& v, const std::string& Text, const std::string& Pattern);
+    int Search(const std::string& Text, const std::string& Pattern);
 };
 
 
-  /*!Implement a class for use!*/
-class  Substring_Search_Algorithms_ : public Substring_Search_Algorithms
-{
-private:
-    std::vector<point> break_;
-
-public:
-    std::vector<point> GetBreak_();
-    void SetBreak_(const int& i, const int& j, const bool& q);
-    Substring_Search_Algorithms_(Substring_Search_Algorithms* comp);
-    ~Substring_Search_Algorithms_();
-	 std::string accept(Visitor& v, const std::string& Line_1, const std::string& Line_2);
-     int Search(const std::string& Line_1, const std::string& Line_2);
-private:
-    Substring_Search_Algorithms* p;
-};

@@ -55,6 +55,7 @@ std::string MainWindow::GetPatIt(){
 
 void MainWindow::on_pushButton_start_clicked()
 {
+     SetCurrentUsage();
     if (!ui->listWidget_algorithms->currentItem()) return;
     ui->lineEdit_text->setReadOnly(true);
     ui->lineEdit_pattern->setReadOnly(true);
@@ -64,18 +65,19 @@ void MainWindow::on_pushButton_start_clicked()
     ui->textBrowser_Time->clear();
     ui->textBrowser_iterations->clear();
     _stop = true;
-    SetCurrentUsage();
-    Substring_Search_Algorithms_* p;
-    if(ui->listWidget_algorithms->currentItem()->text()=="Naive")  p = new Substring_Search_Algorithms_(new Naive);
-    if(ui->listWidget_algorithms->currentItem()->text()=="Rabin Karp") p = new Substring_Search_Algorithms_(new Rabina_Karpa);
-    if(ui->listWidget_algorithms->currentItem()->text()=="KMP") p = new Substring_Search_Algorithms_(new KMP);
-    if(ui->listWidget_algorithms->currentItem()->text()=="Horspool") p = new Substring_Search_Algorithms_(new Horspool);
-    if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor") p = new Substring_Search_Algorithms_(new Boyer_Moor);
+      SetCurrentUsage();
+    Substring_Search_Algorithm* algorithm;
+    if(ui->listWidget_algorithms->currentItem()->text()=="Naive")  algorithm = new Naive;
+    if(ui->listWidget_algorithms->currentItem()->text()=="Rabin Karp") algorithm = new Rabina_Karpa;
+    if(ui->listWidget_algorithms->currentItem()->text()=="KMP") algorithm = new KMP;
+    if(ui->listWidget_algorithms->currentItem()->text()=="Horspool") algorithm = new Horspool;
+    if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor") algorithm = new Boyer_Moor;
     std::string text = ui->lineEdit_text->text().toStdString();
     std::string pattern = ui->lineEdit_pattern->text().toStdString();
-    int position = p->Search(text,pattern);
+    int position = algorithm->Search(text,pattern);
     ui->textBrowser_Start->setText(QString::number(position));
     std::string s;
+
     if (position != -1) {
         if (position > 0) s+= text.substr(0, position);
         s += "<font color=green>";
@@ -85,32 +87,33 @@ void MainWindow::on_pushButton_start_clicked()
         s = "<pre><b><font size=20>" + s + "</font></b></pre>";
     }
     if (ui->checkBox_time->isChecked()) {
-        Substring_Search_Algorithms_* p1 = p;
-        Timer *t = new Timer(p1);
+
+        Timer *t = new Timer(algorithm);
         t->Search(text,pattern);
         ui->textBrowser_Time->setText(QString::number(t->time()));
         delete t;
     }
     if (ui->checkBox_complexity->isChecked()) {
 
-        ComplexityOfTheAlgorithm r;
-        QString s = p->accept(r,text,pattern).c_str();
+        ComplexityOfTheAlgorithm complexy;
+        QString s = algorithm->accept(complexy,text,pattern).c_str();
         ui->textBrowser_Complexity->setText(s);
     }
    if (ui->checkBox_memory->isChecked()) {
 
-        MemoryUsage mem;
-        if(mem.CurrentUsage()>0){
+        MemoryUsage memory;
+        if(memory.CurrentUsage()>0){
             SetCurrentUsage();
         }
-        AmountOfMemoryOfTheAlgorithm m;
-        QString m1 = p->accept(m,text,pattern).c_str();
-        ui->textBrowser_Memory->setText(m1);
+        AmountOfMemoryOfTheAlgorithm amount;
+        QString amount_string = algorithm->accept(amount,text,pattern).c_str();
+        ui->textBrowser_Memory->setText(amount_string);
     }
     if (position != -1) {
         ui->textBrowser_iterations->append(s.c_str());
     }
     if (ui->checkBox_iterations->isChecked()) {
+
         ui->horizontalSlider_spead_iterations->setEnabled(false);
         if (position == -1) { s = text; s = "<pre><b><font size=20>" + s + "</font></b></pre>";
             ui->textBrowser_iterations->append(s.c_str()); }
@@ -120,11 +123,11 @@ void MainWindow::on_pushButton_start_clicked()
         if(ui->listWidget_algorithms->currentItem()->text()=="KMP") it = new Iterations_KMP(this);
         if(ui->listWidget_algorithms->currentItem()->text()=="Horspool") it = new Iterations_Horspool(this);
         if(ui->listWidget_algorithms->currentItem()->text()=="Boyer Moor") it = new Iterations_Boyer_Moor(this);
-        it->print(p);
+        it->print(algorithm);
         ui->horizontalSlider_spead_iterations->setEnabled(true);
-        //delete it;
+
     }
-    delete p;
+    delete algorithm;
     ui->lineEdit_text->setReadOnly(false);
     ui->lineEdit_pattern->setReadOnly(false);
 }

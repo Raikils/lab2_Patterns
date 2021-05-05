@@ -1,13 +1,13 @@
 #include "Timer.h"
 
-Timer::Timer(Substring_Search_Algorithms* w) : Decorator(w), _time{ 0 } {}
+Timer::Timer(Substring_Search_Algorithm* algorithm) : Decorator(algorithm), _time{ 0 } {}
 
-int Timer::Search(const std::string& Line_1, const std::string& Line_2)
+int Timer::Search(const std::string& Text, const std::string& Pattern)
 {
 	unsigned int start = clock();
         const int n = 1000;
         int r;
-        for (int i = 0; i < n; i++) r = Decorator::Search(Line_1, Line_2);
+        for (int i = 0; i < n; i++) r = Decorator::Search(Text, Pattern);
         _time = 0.0 + (clock() - start + 0.0) / (n + 0.0);
 	return r;
 }

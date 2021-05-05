@@ -11,9 +11,9 @@
 class Iterations_
 {
 public:
-    MainWindow* m;
-    Iterations_(MainWindow* m1): m(m1) {}
-    void print(Substring_Search_Algorithms_* p);
+    MainWindow* window;
+    Iterations_(MainWindow* window1): window(window1) {}
+    void print(Substring_Search_Algorithm* algorithm);
     virtual void preprint() = 0;
     virtual bool hash(const point &w) = 0;
 };
@@ -21,7 +21,7 @@ public:
 class Iterations_Naive : public Iterations_
 {
 public:
-    Iterations_Naive(MainWindow* m1): Iterations_(m1) {}
+    Iterations_Naive(MainWindow *window1): Iterations_(window1) {}
     void preprint();
     bool hash(const point &w);
     ~Iterations_Naive();
@@ -32,7 +32,7 @@ class Iterations_Rabina_Karpa : public Iterations_
 private:
     long long pattern_hash;
 public:
-    Iterations_Rabina_Karpa(MainWindow* m1): Iterations_(m1) {}
+    Iterations_Rabina_Karpa(MainWindow* window1): Iterations_(window1) {}
     void preprint();
     bool hash(const point &w);
     ~Iterations_Rabina_Karpa();
@@ -41,7 +41,7 @@ public:
 class Iterations_Horspool : public Iterations_
 {
 public:
-    Iterations_Horspool(MainWindow* m1): Iterations_(m1) {}
+    Iterations_Horspool(MainWindow* window1): Iterations_(window1) {}
     void preprint();
     bool hash(const point &w);
     ~Iterations_Horspool();
@@ -51,7 +51,7 @@ class Iterations_KMP : public Iterations_
 {
 public:
 
-    Iterations_KMP(MainWindow* m1): Iterations_(m1) {}
+    Iterations_KMP(MainWindow* window1): Iterations_(window1) {}
     void preprint();
     bool hash(const point &w);
     ~Iterations_KMP();
@@ -60,7 +60,7 @@ public:
 class Iterations_Boyer_Moor : public Iterations_
 {
 public:
-    Iterations_Boyer_Moor(MainWindow* m1): Iterations_(m1) {}
+    Iterations_Boyer_Moor(MainWindow* window1): Iterations_(window1) {}
     void preprint();
     bool hash(const point &w);
     ~Iterations_Boyer_Moor();

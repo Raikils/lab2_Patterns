@@ -1,10 +1,10 @@
 #include "Decorator.h"
 
-int Decorator::Search(const std::string& Line_1, const std::string& Line_2)
+int Decorator::Search(const std::string& Text, const std::string& Pattern)
 {
-	return w->Search(Line_1, Line_2);
+    return algorithm->Search(Text, Pattern);
 }
-std::string Decorator::accept(class Visitor& v, const std::string& Line_1, const std::string& Line_2)
+std::string Decorator::accept(class Visitor& visitor, const std::string& Text, const std::string& Pattern)
 {
 	return "";
 }
@@ -17,9 +17,9 @@ void Decorator::SetBreak_(const int& i, const int& j, const bool& q) {
 
 }
 
-int Improved_Rabina_Karpa::Search(const std::string& Line_1, const std::string& Line_2)
+int Improved_Rabina_Karpa::Search(const std::string& Text, const std::string& Pattern)
 {
-	r->q = 18014398241046527;
-	r->d = std::rand() + 1;
-	return r->Search(Line_1, Line_2);
+    RK_algorithm->q = 18014398241046527;
+    RK_algorithm->d = std::rand() + 1;
+    return RK_algorithm->Search(Text, Pattern);
 }

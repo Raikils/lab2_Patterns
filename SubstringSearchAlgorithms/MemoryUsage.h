@@ -8,9 +8,9 @@
 struct MemoryUsage
 {
     /*!Variable for storage how many memory allocated*/
-	uint32_t TotalAllocated = 0;
+    size_t TotalAllocated = 0;
       /*!Variable for storage how many memory freed*/
-	uint32_t TotalFreed= 0 ;
+    size_t TotalFreed= 0 ;
      /*!A method for finding how much memory is being used right now */
 	int CurrentUsage();
 };
@@ -22,6 +22,6 @@ static  MemoryUsage s_MemoryUsage;
 /*!Memory allocating function*/
 void*  operator new(size_t size);
 /*!Memory freeding function*/
-void operator delete(void* memory, int size);
+void operator delete(void* memory, size_t size);
 /*!Function for print */
 extern std::string PrintUsage();
