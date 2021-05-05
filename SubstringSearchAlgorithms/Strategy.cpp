@@ -171,7 +171,7 @@ long long Rabina_Karpa::power(long x, long y) { if (y == 0) return 1; else retur
 */
 
 /*!Implementation of the constructor Rabin Karp!*/
-Rabina_Karpa::Rabina_Karpa() : d(26), q(101) {}
+Rabina_Karpa::Rabina_Karpa() : d(26), q(115249) {}
 
 
 /*!Rabin Karp algorithm!*/
